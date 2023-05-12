@@ -26,6 +26,8 @@ class Main {
         borrowBook();
       } else if (selectedMenu == 5) {
         returnBook();
+      } else if (selectedMenu == 6) {
+        addBook();
       } else {
         System.out.println("wrong input");
       }
@@ -42,6 +44,7 @@ class Main {
     System.out.println("3. add member");
     System.out.println("4. borrow book");
     System.out.println("5. return book");
+    System.out.println("6. add book");
     System.out.println("================================");
   }
 
@@ -107,6 +110,19 @@ class Main {
     member.name = scan.next();
 
     library.addMember(member);
+  }
+
+  // menambahkan method tambah buku
+  public static void addBook() {
+    Book book = new Book();
+
+    System.out.print("id : ");
+    book.id = scan.next();
+
+    System.out.print("Title : ");
+    book.title = scan.next();
+
+    library.addBook(book);
   }
 
   public static void borrowBook() {
