@@ -5,13 +5,36 @@ class Library {
   public ArrayList<Member> members = new ArrayList<Member>();
 
   public void addMember(Member member) {
-    this.members.add(member);
+    if (!isMemberIdExist(member.id)) {
+      this.members.add(member);
+    } else {
+      System.out.println("Data Sudah Ada");
+    }
   }
 
   public Boolean isMemberIdExist(String id) {
     Boolean isExist = false;
     for (Member member : this.members) {
-      if (member.id == id) {
+      if (member.id.equals(id)) {
+        isExist = true;
+      }
+    }
+    return isExist;
+  }
+
+  // menambahkan Buku
+  public void addBook(Book book) {
+    if (!isBookIdExist(book.id)) {
+      this.books.add(book);
+    } else {
+      System.out.println("Data Sudah Ada");
+    }
+  }
+
+  public Boolean isBookIdExist(String id) {
+    Boolean isExist = false;
+    for (Book book : this.books) {
+      if (book.id.equals(id)) {
         isExist = true;
       }
     }
