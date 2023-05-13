@@ -42,43 +42,51 @@ class Library {
   }
 
   public void giveBook(String bookId, String memberId) {
-    Book book = this.getBookById(bookId);
+    try {
+      Book book = this.getBookById(bookId);
 
-    Member member = this.getMemberById(memberId);
-    int memberIndex = this.getMemberIndex(member);
-    this.books.remove(book);
-    this.members.get(memberIndex).borrowedBooks.add(book);
+      Member member = this.getMemberById(memberId);
+      int memberIndex = this.getMemberIndex(member);
+      this.books.remove(book);
+      this.members.get(memberIndex).borrowedBooks.add(book);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   public void receiveBook(String bookId, String memberId) {
-    Member member = this.getMemberById(memberId);
-    int memberIndex = this.getMemberIndex(member);
+    try {
+      Member member = this.getMemberById(memberId);
+      int memberIndex = this.getMemberIndex(member);
 
-    Book book = this.members.get(memberIndex).getBookById(bookId);
+      Book book = this.members.get(memberIndex).getBookById(bookId);
 
-    this.books.add(book);
-    this.members.get(memberIndex).borrowedBooks.remove(book);
+      this.books.add(book);
+      this.members.get(memberIndex).borrowedBooks.remove(book);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   private int getMemberIndex(Member member) {
     return this.members.indexOf(member);
   }
 
-  private Member getMemberById(String id) {
+  private Member getMemberById(String id) throws Exception {
     for (Member member : this.members) {
       if (member.id.equals(id)) {
         return member;
       }
     }
-    return null;
+    throw new Exception("Member dengan id " + id + " tidak ditemukan");
   }
 
-  private Book getBookById(String id) {
+  private Book getBookById(String id) throws Exception {
     for (Book book : this.books) {
       if (book.id.equals(id)) {
         return book;
       }
     }
-    return null;
+    throw new Exception("Buku tidak ditemukan");
   }
 }
