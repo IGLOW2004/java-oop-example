@@ -43,19 +43,20 @@ class Library {
 
   public void giveBook(String bookId, String memberId) {
     Book book = this.getBookById(bookId);
-    this.books.remove(book);
 
     Member member = this.getMemberById(memberId);
     int memberIndex = this.getMemberIndex(member);
+    this.books.remove(book);
     this.members.get(memberIndex).borrowedBooks.add(book);
   }
 
   public void receiveBook(String bookId, String memberId) {
-    Book book = this.getBookById(bookId);
-    this.books.add(book);
-
     Member member = this.getMemberById(memberId);
     int memberIndex = this.getMemberIndex(member);
+
+    Book book = this.members.get(memberIndex).getBookById(bookId);
+
+    this.books.add(book);
     this.members.get(memberIndex).borrowedBooks.remove(book);
   }
 

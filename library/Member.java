@@ -12,4 +12,13 @@ class Member {
   public void giveBook(Book book) {
     this.borrowedBooks.remove(book);
   }
+
+  public Book getBookById(String id) {
+    for (Book book : this.borrowedBooks) {
+      if (book.id.equals(id)) {
+        return book;
+      }
+    }
+    return null;
+  }
 }
