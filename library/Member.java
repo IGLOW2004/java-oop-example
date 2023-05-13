@@ -1,9 +1,27 @@
 import java.util.ArrayList;
 
 class Member {
-  public String id;
-  public String name;
-  public ArrayList<Book> borrowedBooks = new ArrayList<Book>();
+  String id;
+  String name;
+  ArrayList<Book> borrowedBooks;
+
+  public Member() {
+    this.id = id;
+    this.name = name;
+    this.borrowedBooks = new ArrayList<Book>();
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public ArrayList<Book> getborrowedBooks() {
+    return borrowedBooks;
+  }
 
   public void receiveBook(Book book) {
     this.borrowedBooks.add(book);

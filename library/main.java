@@ -5,7 +5,7 @@ import java.util.Scanner;
 class Main {
 
   static Scanner scan = new Scanner(System.in);
-  static Library library = new Library();
+  static Library library = new PublicLibrary();
 
   public static void main(String[] args) {
     initLibraryData();
@@ -32,8 +32,16 @@ class Main {
         System.out.println("wrong input");
       }
 
-      System.out.print("continue ? ");
-      isContinue = scan.next();
+      System.out.print("continue ? (y/n) ");
+      while (true) {
+        String input = scan.next();
+        if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("n")) {
+          isContinue = input;
+          break;
+        } else {
+          System.out.println("Invalid Input. Please enter 'y' or 'n'.");
+        }
+      }
     }
   }
 

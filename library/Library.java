@@ -1,21 +1,65 @@
 import java.util.ArrayList;
 
-class Library {
+abstract class Library {
   public ArrayList<Book> books = new ArrayList<Book>();
   public ArrayList<Member> members = new ArrayList<Member>();
 
+  public abstract void addMember(Member member);
+
+  public abstract Boolean isMemberIdExist(String id);
+
+  public abstract void addBook(Book book);
+
+  public abstract Boolean isBookIdExist(String id);
+
+  public abstract void giveBook(String bookId, String memberId);
+
+  public abstract void receiveBook(String bookId, String memberId);
+
+  protected int getMemberIndex(Member member) {
+    return this.members.indexOf(member);
+  }
+
+  protected Member getMemberById(String id) throws Exception {
+    for (Member member : this.members) {
+      if (member.getId().equals(id)) {
+        return member;
+      }
+    }
+    throw new Exception("Member dengan id " + id + " tidak ditemukan");
+  }
+
+  protected Book getBookById(String id) throws Exception {
+    for (Book book : this.books) {
+      if (book.id.equals(id)) {
+        return book;
+      }
+    }
+    throw new Exception("Buku dengan id " + id + " tidak ditemukan");
+  }
+}
+
+class PublicLibrary extends Library {
+  // constructor
+  public PublicLibrary() {
+    super();
+  }
+
+  @Override
   public void addMember(Member member) {
-    if (!isMemberIdExist(member.id)) {
+    if (!isMemberIdExist(member.getId())) {
       this.members.add(member);
+      System.out.println("Member berhasil ditambahkan");
     } else {
-      System.out.println("Data Sudah Ada");
+      System.out.println("Data Member dengan ID " + member.getId() + " Sudah Disi");
     }
   }
 
+  @Override
   public Boolean isMemberIdExist(String id) {
     Boolean isExist = false;
     for (Member member : this.members) {
-      if (member.id.equals(id)) {
+      if (member.getId().equals(id)) {
         isExist = true;
       }
     }
@@ -23,14 +67,17 @@ class Library {
   }
 
   // menambahkan Buku
+  @Override
   public void addBook(Book book) {
     if (!isBookIdExist(book.id)) {
       this.books.add(book);
+      System.out.println("Buku Berhasil ditambahkan");
     } else {
-      System.out.println("Data Sudah Ada");
+      System.out.println("Data Buku dengan ID " + book.id + " Sudah Ada");
     }
   }
 
+  @Override
   public Boolean isBookIdExist(String id) {
     Boolean isExist = false;
     for (Book book : this.books) {
@@ -41,6 +88,7 @@ class Library {
     return isExist;
   }
 
+  @Override
   public void giveBook(String bookId, String memberId) {
     try {
       Book book = this.getBookById(bookId);
@@ -48,7 +96,9 @@ class Library {
       Member member = this.getMemberById(memberId);
       int memberIndex = this.getMemberIndex(member);
       this.books.remove(book);
-      this.members.get(memberIndex).borrowedBooks.add(book);
+      this.members.get(memberIndex).getborrowedBooks().add(book);
+      System.out
+          .println("Buku dengan id " + book.id + " telah berhasil dipinjam oleh member dengan ID " + member.getId());
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
@@ -63,30 +113,10 @@ class Library {
 
       this.books.add(book);
       this.members.get(memberIndex).borrowedBooks.remove(book);
+      System.out.println(
+          "Buku dengan id " + book.id + " telah berhasil dikembalikan oleh member dengan ID " + member.getId());
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
-  }
-
-  private int getMemberIndex(Member member) {
-    return this.members.indexOf(member);
-  }
-
-  private Member getMemberById(String id) throws Exception {
-    for (Member member : this.members) {
-      if (member.id.equals(id)) {
-        return member;
-      }
-    }
-    throw new Exception("Member dengan id " + id + " tidak ditemukan");
-  }
-
-  private Book getBookById(String id) throws Exception {
-    for (Book book : this.books) {
-      if (book.id.equals(id)) {
-        return book;
-      }
-    }
-    throw new Exception("Buku tidak ditemukan");
   }
 }
