@@ -1,6 +1,14 @@
 import java.util.ArrayList;
 
-class Member {
+interface Borrowable {
+  void receiveBook(Book book);
+
+  void giveBook(Book book);
+
+  Book getBookById(String id);
+}
+
+class Member implements Borrowable {
   String id;
   String name;
   ArrayList<Book> borrowedBooks;
