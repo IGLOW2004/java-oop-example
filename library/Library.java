@@ -69,12 +69,23 @@ class PublicLibrary extends Library {
   // menambahkan Buku
   @Override
   public void addBook(Book book) {
-    if (!isBookIdExist(book.getId())) {
+    if (isBookIdExist(book.getId())) {
+      System.out.println("Data Buku dengan ID " + book.getId() + " Sudah Ada");
+    } else if (isBookBorrowed(book.getId())) {
+      System.out.println("Buku dengan ID " + book.getId() + " sudah ada dan Sedang Dipinjam");
+    } else {
       this.books.add(book);
       System.out.println("Buku Berhasil ditambahkan");
-    } else {
-      System.out.println("Data Buku dengan ID " + book.getId() + " Sudah Ada");
     }
+  }
+
+  private boolean isBookBorrowed(String bookId) {
+    for (Member member : this.members) {
+      if (member.getBookById(bookId) != null) {
+        return true;
+      }
+    }
+    return false;
   }
 
   @Override
