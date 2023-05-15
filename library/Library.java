@@ -31,7 +31,7 @@ abstract class Library {
 
   protected Book getBookById(String id) throws Exception {
     for (Book book : this.books) {
-      if (book.id.equals(id)) {
+      if (book.getId().equals(id)) {
         return book;
       }
     }
@@ -69,11 +69,11 @@ class PublicLibrary extends Library {
   // menambahkan Buku
   @Override
   public void addBook(Book book) {
-    if (!isBookIdExist(book.id)) {
+    if (!isBookIdExist(book.getId())) {
       this.books.add(book);
       System.out.println("Buku Berhasil ditambahkan");
     } else {
-      System.out.println("Data Buku dengan ID " + book.id + " Sudah Ada");
+      System.out.println("Data Buku dengan ID " + book.getId() + " Sudah Ada");
     }
   }
 
@@ -81,7 +81,7 @@ class PublicLibrary extends Library {
   public Boolean isBookIdExist(String id) {
     Boolean isExist = false;
     for (Book book : this.books) {
-      if (book.id.equals(id)) {
+      if (book.getId().equals(id)) {
         isExist = true;
       }
     }
@@ -98,7 +98,8 @@ class PublicLibrary extends Library {
       this.books.remove(book);
       this.members.get(memberIndex).getborrowedBooks().add(book);
       System.out
-          .println("Buku dengan id " + book.id + " telah berhasil dipinjam oleh member dengan ID " + member.getId());
+          .println(
+              "Buku dengan id " + book.getId() + " telah berhasil dipinjam oleh member dengan ID " + member.getId());
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
@@ -111,10 +112,14 @@ class PublicLibrary extends Library {
 
       Book book = this.members.get(memberIndex).getBookById(bookId);
 
+      if (book == null) {
+        throw new Exception("Buku dengan id " + bookId + " tidak dipinjam oleh member dengan ID " + member.getId());
+      }
+
       this.books.add(book);
       this.members.get(memberIndex).borrowedBooks.remove(book);
       System.out.println(
-          "Buku dengan id " + book.id + " telah berhasil dikembalikan oleh member dengan ID " + member.getId());
+          "Buku dengan id " + book.getId() + " telah berhasil dikembalikan oleh member dengan ID " + member.getId());
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }

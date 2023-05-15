@@ -59,16 +59,16 @@ class Main {
 
   public static void initLibraryData() {
     Book book1 = new Book();
-    book1.id = "1";
-    book1.title = "pemrograman java";
+    book1.setId("1");
+    book1.setTitle("pemrograman java");
 
     Book book2 = new Book();
-    book2.id = "2";
-    book2.title = "pemrograman oop";
+    book2.setId("2");
+    book2.setTitle("pemrograman oop");
 
     Book book3 = new Book();
-    book3.id = "3";
-    book3.title = "pemrograman android";
+    book3.setId("3");
+    book3.setTitle("pemrograman android");
 
     Member member1 = new Member();
     member1.id = "1";
@@ -105,7 +105,7 @@ class Main {
 
   public static void showBooks() {
     for (Book book : library.books) {
-      System.out.println(book.id + " " + book.title);
+      System.out.println(book.getId() + " " + book.getTitle());
     }
   }
 
@@ -132,11 +132,11 @@ class Main {
     Book book = new Book();
 
     System.out.print("id : ");
-    book.id = scan.next();
+    book.setId(scan.next());
 
     System.out.print("Title : ");
     scan.nextLine();
-    book.title = scan.nextLine();
+    book.setTitle(scan.nextLine());
 
     library.addBook(book);
   }

@@ -41,7 +41,7 @@ class Member implements Borrowable {
 
   public Book getBookById(String id) {
     for (Book book : this.borrowedBooks) {
-      if (book.id.equals(id)) {
+      if (book.getId().equals(id)) {
         return book;
       }
     }
