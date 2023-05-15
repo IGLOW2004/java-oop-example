@@ -1,5 +1,6 @@
 
 // ini adalah commit pertama saya di github
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class Main {
@@ -91,8 +92,14 @@ class Main {
   }
 
   public static int chooseMenu() {
-    System.out.print("choose menu : ");
-    int pilihan = scan.nextInt();
+    int pilihan = 0;
+    try {
+      System.out.print("choose menu : ");
+      pilihan = scan.nextInt();
+    } catch (InputMismatchException e) {
+      System.out.println("Invalid Input. Please enter a number.");
+      scan.next(); // clear the scanner buffer
+    }
     return pilihan;
   }
 
